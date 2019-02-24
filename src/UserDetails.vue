@@ -12,6 +12,16 @@
           </div>
 
           <div class="form-group">
+            <label for ="datepicker">Date Of Join</label>
+            <div class="input-group date" data-provide="datepicker">
+              <input type="text" class="form-control" id="datepicker">
+              <div class="input-group-addon">
+                <span class="glyphicon glyphicon-th"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
             <label for="isVictorian">Person located in Victoria</label>
             <div v-for="value in formData.values">
               <input type ="radio" id="isVictorian" v-bind:value="value" v-model="post.isVictorian">

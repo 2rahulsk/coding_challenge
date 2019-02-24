@@ -2,7 +2,7 @@
   <div class ="container">
     <div class = "row">
       <div class="col-xs-12">
-        <h1>Form : Page1</h1>
+        <h1>Form</h1>
         <form>
           <div class="form-group">
             <label for ="select-storetype">Store Type</label>
@@ -16,18 +16,20 @@
             <input type ="text" class="form-control" id="details" v-model="post.details">
           </div>
 
+          <Autocomplete @clicked="onChildClicked"></Autocomplete>
+
           <div class="form-group">
             <label for="firstName">First Name</label>
-            <input type ="text" class="form-control" id="firstName" v-model="post.firstName">
+            <input type ="text" class="form-control" id="firstName" v-model="post.firstName" disabled>
           </div>
 
           <div class="form-group">
             <label for="lastName">Last Name</label>
-            <input type ="text" class="form-control" id="lastName" v-model="post.lastName">
+            <input type ="text"  class="form-control" id="lastName" v-model="post.lastName" disabled >
           </div>
           <!--<router-link to="/userDetails" >Go</router-link>-->
-          <!--<input type="submit" class="btn btn-primary" v-on:click="goToNextPage()" value="Next">-->
-          <router-link to="/userDetails" tag="button" class="btn btn-primary">Next</router-link>
+          <!--<input type="submit" @click.p="updateJson" class="btn btn-primary" value="Next">-->
+          <router-link to="/userDetails"  tag="button" class="btn btn-primary">Next</router-link>
         </form>
 
       </div>
@@ -36,9 +38,13 @@
 </template>
 
 <script>
+  import Autocomplete from './Autocomplete';
   export default {
     data () {
       return{
+        names: [],
+        roles:[],
+        errors:[],
         view:'first',
         post: {
           storetype:'',
@@ -50,6 +56,24 @@
           storetype:['Mall','Metro','Arcade','Centre']
         }
       };
+    },
+    methods:{
+      onChildClicked(value1,value2){
+        this.post.firstName = value1;
+        this.post.lastName = value2;
+      }
+    },
+    components:{
+      Autocomplete
+    },
+    created() {
+      this.$http.get('https://randomuser.me/api/?results=50&nat=au&exc=login').then(function(data){
+        this.roles = data.body.results;
+        for ( var i in this.roles){
+          this.names.push(this.roles[i].name.first + ' ' + this.roles[i].name.last);
+        }
+        console.log(this.names);
+      })
     }
   }
 </script>
