@@ -6,14 +6,14 @@
         <form>
           <div class="form-group">
             <label for ="select-storetype">Store Type</label>
-            <select class="form-control" id ="select-storetype" v-model="post.storetype">
+            <select class="form-control" id ="select-storetype" v-model="post.storetype" required>
               <option v-for="type in formData.storetype" v-bind:value="type">{{ type }}</option>
             </select>
           </div>
 
           <div v-show="post.storetype === 'Metro'" class="form-group">
             <label for="details">Details</label>
-            <input type ="text" class="form-control" id="details" v-model="post.details">
+            <input type ="text" class="form-control" id="details" v-model="post.details" required>
           </div>
 
           <Autocomplete @clicked="onChildClicked"></Autocomplete>
@@ -29,7 +29,8 @@
           </div>
           <!--<router-link to="/userDetails" >Go</router-link>-->
           <!--<input type="submit" @click.p="updateJson" class="btn btn-primary" value="Next">-->
-          <router-link to="/userDetails"  tag="button" class="btn btn-primary">Next</router-link>
+          <router-link to="/userDetails" params="{type: post.type}" tag="button" class="btn btn-primary">Next</router-link>
+
         </form>
 
       </div>
@@ -39,6 +40,7 @@
 
 <script>
   import Autocomplete from './Autocomplete';
+
   export default {
     data () {
       return{

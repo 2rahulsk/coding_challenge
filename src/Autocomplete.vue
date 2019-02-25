@@ -55,7 +55,6 @@
              this.searchItems.push(this.names[i]);
            }
          }
-
          return this.searchItems;
         }
 

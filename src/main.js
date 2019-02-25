@@ -5,11 +5,12 @@ import VueResource from 'vue-resource';
 import {routes} from './routes';
 import VueBootstrapTypeahead from 'vue-bootstrap-typeahead'
 
+
 // Global registration
 Vue.component('vue-bootstrap-typeahead', VueBootstrapTypeahead);
-
 Vue.use(VueRouter);
 Vue.use(VueResource);
+
 
 const router = new VueRouter({
   routes: routes,
